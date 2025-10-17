@@ -891,7 +891,13 @@
             
             // Update question number and text
             document.getElementById('currentQuestionNumber').textContent = question.number + '.';
-            document.getElementById('currentQuestionText').textContent = question.text;
+            if (question.text.includes('___')) {
+                // For inline fill‑in‑the‑blank questions, render the full sentence only in the input container
+                document.getElementById('currentQuestionText').textContent = '';
+            } else {
+                // For prompts without explicit blanks, show the sentence above and the input below
+                document.getElementById('currentQuestionText').textContent = question.text;
+            }
             
             // Update input area
             const inputContainer = document.getElementById('currentQuestionInput');
