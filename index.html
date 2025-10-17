@@ -1321,15 +1321,17 @@
         }
         
         // Load saved progress on page load
-        window.addEventListener('load', () => {
-            initializeQuestionOrders();
-            loadProgress();
-            loadTestProgress();
-            loadShortAnswerProgress();
-            updateCurrentQuestion();
-            updateCurrentShortQuestion();
-            updateLiveTracker();
-        });
+window.addEventListener('load', () => {
+    initializeQuestionOrders();
+    shuffleFillBlankQuestions();
+    shuffleShortAnswerQuestions();
+    loadProgress();
+    loadTestProgress();
+    loadShortAnswerProgress();
+    updateCurrentQuestion();
+    updateCurrentShortQuestion();
+    updateLiveTracker();
+});
         
         // Save progress when user types
         document.addEventListener('input', saveProgress);
@@ -1353,13 +1355,13 @@
                 type: 'fill-blank',
                 number: 3,
                 text: 'A ___ source is an original record created by someone who witnessed or took part in an event.',
-                inputs: [{ answer: 'primary source', placeholder: 'your answer' }]
+                inputs: [{ answer: 'secondary', placeholder: 'your answer' }]
             },
             {
                 type: 'fill-blank',
                 number: 4,
                 text: 'A ___ source interprets or analyzes information from other sources.',
-                inputs: [{ answer: 'secondary source', placeholder: 'your answer' }]
+                inputs: [{ answer: 'primary', placeholder: 'your answer' }]
             },
             {
                 type: 'fill-blank',
