@@ -690,15 +690,16 @@
         
         <main class="content">
             <div class="tabs">
-                <button class="tab-btn active" onclick="showTab('test')">📝 Practice Test</button>
-                <button class="tab-btn" onclick="showTab('flashcards')">🃏 Flashcards</button>
+                <button class="tab-btn active" onclick="showTab(event, 'fillblanks')">📝 Fill in the Blanks</button>
+                <button class="tab-btn" onclick="showTab(event, 'shortanswer')">✍️ Short Answer</button>
+                <button class="tab-btn" onclick="showTab(event, 'flashcards')">🃏 Flashcards</button>
             </div>
             
-            <div id="test-content" class="tab-content active">
+            <div id="fillblanks-content" class="tab-content active">
                 <div class="section">
                     <div class="test-progress">
                         <div class="progress-header">
-                            <h2 id="sectionTitle">Part I: Fill in the Blank</h2>
+                            <h2 id="sectionTitle">Part I: Fill in the Blank Questions</h2>
                             <div class="question-counter">
                                 <span id="questionCounter">Question 1 of 30</span>
                                 <div class="test-progress-bar">
@@ -733,11 +734,65 @@
                         <div class="tracker-score" id="trackerScore">0% Correct</div>
                         <div class="tracker-details" id="trackerDetails">0 of 0 answered</div>
                     </div>
+                    <button class="btn" onclick="shuffleFillBlankQuestions()">🔀 Shuffle Questions</button>
                     <button class="btn btn-secondary" onclick="clearAll()">Clear All Answers</button>
                     <button class="btn btn-secondary" onclick="showFinalScore()">📊 Final Score</button>
                 </div>
                 
                 <div class="score-display" id="scoreDisplay"></div>
+                </div>
+            </div>
+            
+            <div id="shortanswer-content" class="tab-content">
+                <div class="section">
+                    <div class="test-progress">
+                        <div class="progress-header">
+                            <h2 id="shortSectionTitle">Part II: Short Answer Questions</h2>
+                            <div class="question-counter">
+                                <span id="shortQuestionCounter">Question 1 of 10</span>
+                                <div class="test-progress-bar">
+                                    <div class="test-progress-fill" id="shortProgressFill"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="current-question-container">
+                        <div class="question current-question" id="shortCurrentQuestion">
+                            <span class="question-number" id="shortCurrentQuestionNumber">21.</span>
+                            <span id="shortCurrentQuestionText">Why is government necessary for groups of people to function?</span>
+                            <div id="shortCurrentQuestionInput">
+                                <textarea class="short-answer-textarea" placeholder="Write your answer here (2-4 sentences)..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="question-navigation">
+                        <button class="btn btn-secondary" onclick="previousShortQuestion()" id="prevShortQuestionBtn">← Previous</button>
+                        <button class="btn" onclick="checkCurrentShortAnswer()" id="checkShortBtn">Check Answer</button>
+                        <button class="btn btn-secondary" onclick="nextShortQuestion()" id="nextShortQuestionBtn">Next →</button>
+                    </div>
+                    
+                    <div class="answer-feedback" id="shortAnswerFeedback" style="display: none;"></div>
+                </div>
+                
+                <div class="controls">
+                    <div class="live-score-tracker" id="shortLiveScoreTracker">
+                        <div class="tracker-label">Short Answer Progress</div>
+                        <div class="tracker-score" id="shortTrackerScore">0 of 10 answered</div>
+                        <div class="tracker-details" id="shortTrackerDetails">Review exemplar responses to check your work</div>
+                    </div>
+                    <button class="btn" onclick="shuffleShortAnswerQuestions()">🔀 Shuffle Questions</button>
+                    <button class="btn btn-secondary" onclick="clearShortAnswers()">Clear All Answers</button>
+                    <button class="btn btn-secondary" onclick="showAllShortAnswers()">📋 View All Questions</button>
+                </div>
+                
+                <div class="all-questions-view" id="shortAllQuestionsView">
+                    <h3>All Short Answer Questions</h3>
+                    <div id="shortAllQuestionsList"></div>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <button class="btn" onclick="hideAllShortAnswers()">← Back to Single Question View</button>
+                    </div>
                 </div>
             </div>
             
@@ -808,21 +863,30 @@
         
         timerInterval = setInterval(updateTimer, 1000);
         
+        // Initialize question orders
+        function initializeQuestionOrders() {
+            const fillBlankQuestions = testQuestions.filter(q => q.type === 'fill-blank');
+            const shortQuestions = testQuestions.filter(q => q.type === 'short-answer');
+            
+            if (fillBlankOrder.length === 0) {
+                fillBlankOrder = [...Array(fillBlankQuestions.length).keys()];
+            }
+            if (shortAnswerOrder.length === 0) {
+                shortAnswerOrder = [...Array(shortQuestions.length).keys()];
+            }
+        }
+        
         // Test navigation functions
         function updateCurrentQuestion() {
-            const question = testQuestions[currentQuestionIndex];
-            const isShortAnswer = question.type === 'short-answer';
-            
-            // Update section title
-            document.getElementById('sectionTitle').textContent = 
-                isShortAnswer ? 'Part II: Short Answer' : 'Part I: Fill in the Blank';
+            const fillBlankQuestions = testQuestions.filter(q => q.type === 'fill-blank');
+            const question = fillBlankQuestions[fillBlankOrder[currentQuestionIndex]];
             
             // Update question counter
             document.getElementById('questionCounter').textContent = 
-                `Question ${currentQuestionIndex + 1} of ${testQuestions.length}`;
+                `Question ${currentQuestionIndex + 1} of ${fillBlankQuestions.length}`;
             
             // Update progress bar
-            const progress = ((currentQuestionIndex + 1) / testQuestions.length) * 100;
+            const progress = ((currentQuestionIndex + 1) / fillBlankQuestions.length) * 100;
             document.getElementById('testProgressFill').style.width = progress + '%';
             
             // Update question number and text
@@ -833,61 +897,53 @@
             const inputContainer = document.getElementById('currentQuestionInput');
             inputContainer.innerHTML = '';
             
-            if (isShortAnswer) {
-                const textarea = document.createElement('textarea');
-                textarea.className = 'short-answer-textarea';
-                textarea.placeholder = 'Write your answer here (2-4 sentences)...';
-                textarea.value = userAnswers[currentQuestionIndex] || '';
-                textarea.addEventListener('input', () => {
-                    userAnswers[currentQuestionIndex] = textarea.value;
+            // Fill-in-the-blank logic
+            let questionText = question.text;
+            question.inputs.forEach((inputData, index) => {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'fill-blank-input';
+                input.dataset.answer = inputData.answer;
+                input.placeholder = inputData.placeholder;
+                const actualQuestionIndex = testQuestions.findIndex(q => q.number === question.number);
+                input.value = userAnswers[`${actualQuestionIndex}_${index}`] || '';
+                input.addEventListener('input', () => {
+                    const actualQuestionIndex = testQuestions.findIndex(q => q.number === question.number);
+                    userAnswers[`${actualQuestionIndex}_${index}`] = input.value;
                     saveTestProgress();
                 });
-                inputContainer.appendChild(textarea);
-            } else {
-                let questionText = question.text;
-                question.inputs.forEach((inputData, index) => {
-                    const input = document.createElement('input');
-                    input.type = 'text';
-                    input.className = 'fill-blank-input';
-                    input.dataset.answer = inputData.answer;
-                    input.placeholder = inputData.placeholder;
-                    input.value = userAnswers[`${currentQuestionIndex}_${index}`] || '';
-                    input.addEventListener('input', () => {
-                        userAnswers[`${currentQuestionIndex}_${index}`] = input.value;
-                        saveTestProgress();
-                    });
-                    
-                    // Replace ___ with input field
-                    if (questionText.includes('___')) {
-                        const parts = questionText.split('___', 2);
-                        if (parts[0]) {
-                            const textNode = document.createTextNode(parts[0]);
-                            inputContainer.appendChild(textNode);
-                        }
-                        inputContainer.appendChild(input);
-                        questionText = parts[1] || '';
-                    } else {
-                        // For questions that end with the input
-                        inputContainer.appendChild(input);
-                    }
-                });
                 
-                if (questionText) {
-                    const textNode = document.createTextNode(questionText);
-                    inputContainer.appendChild(textNode);
+                // Replace ___ with input field
+                if (questionText.includes('___')) {
+                    const parts = questionText.split('___', 2);
+                    if (parts[0]) {
+                        const textNode = document.createTextNode(parts[0]);
+                        inputContainer.appendChild(textNode);
+                    }
+                    inputContainer.appendChild(input);
+                    questionText = parts[1] || '';
+                } else {
+                    // For questions that end with the input
+                    inputContainer.appendChild(input);
                 }
+            });
+            
+            if (questionText) {
+                const textNode = document.createTextNode(questionText);
+                inputContainer.appendChild(textNode);
             }
             
             // Update navigation buttons
             document.getElementById('prevQuestionBtn').disabled = currentQuestionIndex === 0;
-            document.getElementById('nextQuestionBtn').disabled = currentQuestionIndex === testQuestions.length - 1;
+            document.getElementById('nextQuestionBtn').disabled = currentQuestionIndex === fillBlankQuestions.length - 1;
             
             // Hide feedback
             document.getElementById('answerFeedback').style.display = 'none';
         }
         
         function nextQuestion() {
-            if (currentQuestionIndex < testQuestions.length - 1) {
+            const fillBlankQuestions = testQuestions.filter(q => q.type === 'fill-blank');
+            if (currentQuestionIndex < fillBlankQuestions.length - 1) {
                 currentQuestionIndex++;
                 updateCurrentQuestion();
             }
@@ -941,26 +997,9 @@
         }
         
         function checkCurrentAnswer() {
-            const question = testQuestions[currentQuestionIndex];
+            const fillBlankQuestions = testQuestions.filter(q => q.type === 'fill-blank');
+            const question = fillBlankQuestions[fillBlankOrder[currentQuestionIndex]];
             const feedback = document.getElementById('answerFeedback');
-            
-            if (question.type === 'short-answer') {
-                const exemplarResponse = getExemplarResponse(question.number);
-                feedback.innerHTML = `
-                    <div style="text-align: left; max-width: 600px; margin: 0 auto;">
-                        <div style="font-weight: bold; margin-bottom: 15px; color: #2c3e50;">📝 Exemplar Response:</div>
-                        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #3498db; line-height: 1.6;">
-                            ${exemplarResponse}
-                        </div>
-                        <div style="margin-top: 15px; font-size: 0.9em; color: #6c757d;">
-                            Compare your answer with this example. Your teacher will review your response.
-                        </div>
-                    </div>
-                `;
-                feedback.className = 'answer-feedback feedback-correct';
-                feedback.style.display = 'block';
-                return;
-            }
             
             const inputs = document.querySelectorAll('#currentQuestionInput .fill-blank-input');
             let allCorrect = true;
@@ -1007,6 +1046,33 @@
             
             feedback.style.display = 'block';
         }
+        
+        window.checkCurrentAnswer = checkCurrentAnswer;
+        window.nextQuestion = nextQuestion;
+        window.previousQuestion = previousQuestion;
+        window.shuffleFillBlankQuestions = shuffleFillBlankQuestions;
+        window.clearAll = clearAll;
+        window.showFinalScore = showFinalScore;
+        
+        // Short answer functions
+        window.checkCurrentShortAnswer = checkCurrentShortAnswer;
+        window.nextShortQuestion = nextShortQuestion;
+        window.previousShortQuestion = previousShortQuestion;
+        window.shuffleShortAnswerQuestions = shuffleShortAnswerQuestions;
+        window.clearShortAnswers = clearShortAnswers;
+        window.showAllShortAnswers = showAllShortAnswers;
+        window.hideAllShortAnswers = hideAllShortAnswers;
+        
+        // Flashcard functions
+        window.flipCard = flipCard;
+        window.nextCard = nextCard;
+        window.previousCard = previousCard;
+        window.markKnown = markKnown;
+        window.shuffleCards = shuffleCards;
+        window.resetProgress = resetProgress;
+        
+        // Tab function
+        window.showTab = showTab;
         
         // Generate common spelling variations
         function getSpellingVariations(word) {
@@ -1249,9 +1315,12 @@
         
         // Load saved progress on page load
         window.addEventListener('load', () => {
+            initializeQuestionOrders();
             loadProgress();
             loadTestProgress();
+            loadShortAnswerProgress();
             updateCurrentQuestion();
+            updateCurrentShortQuestion();
             updateLiveTracker();
         });
         
@@ -1467,6 +1536,13 @@
         let currentQuestionIndex = 0;
         let userAnswers = {};
         let showingAllQuestions = false;
+        let fillBlankOrder = [];
+        
+        // Short answer specific variables
+        let currentShortQuestionIndex = 0;
+        let shortAnswers = {};
+        let showingAllShortQuestions = false;
+        let shortAnswerOrder = [];
         
         // Flashcard data
         const flashcards = [
@@ -1511,23 +1587,187 @@
         let knownCards = new Set();
         let cardOrder = [...Array(flashcards.length).keys()];
         
+        // Short answer functions
+        function updateCurrentShortQuestion() {
+            const shortQuestions = testQuestions.filter(q => q.type === 'short-answer');
+            const question = shortQuestions[shortAnswerOrder[currentShortQuestionIndex]];
+            
+            // Update question counter
+            document.getElementById('shortQuestionCounter').textContent = 
+                `Question ${currentShortQuestionIndex + 1} of ${shortQuestions.length}`;
+            
+            // Update progress bar
+            const progress = ((currentShortQuestionIndex + 1) / shortQuestions.length) * 100;
+            document.getElementById('shortProgressFill').style.width = progress + '%';
+            
+            // Update question number and text
+            document.getElementById('shortCurrentQuestionNumber').textContent = question.number + '.';
+            document.getElementById('shortCurrentQuestionText').textContent = question.text;
+            
+            // Update textarea
+            const inputContainer = document.getElementById('shortCurrentQuestionInput');
+            inputContainer.innerHTML = '';
+            
+            const textarea = document.createElement('textarea');
+            textarea.className = 'short-answer-textarea';
+            textarea.placeholder = 'Write your answer here (2-4 sentences)...';
+            textarea.value = shortAnswers[question.number] || '';
+            textarea.addEventListener('input', () => {
+                shortAnswers[question.number] = textarea.value;
+                saveShortAnswerProgress();
+            });
+            inputContainer.appendChild(textarea);
+            
+            // Update navigation buttons
+            document.getElementById('prevShortQuestionBtn').disabled = currentShortQuestionIndex === 0;
+            document.getElementById('nextShortQuestionBtn').disabled = currentShortQuestionIndex === shortQuestions.length - 1;
+            
+            // Hide feedback
+            document.getElementById('shortAnswerFeedback').style.display = 'none';
+            
+            updateShortAnswerTracker();
+        }
+        
+        function nextShortQuestion() {
+            const shortQuestions = testQuestions.filter(q => q.type === 'short-answer');
+            if (currentShortQuestionIndex < shortQuestions.length - 1) {
+                currentShortQuestionIndex++;
+                updateCurrentShortQuestion();
+            }
+        }
+        
+        function previousShortQuestion() {
+            if (currentShortQuestionIndex > 0) {
+                currentShortQuestionIndex--;
+                updateCurrentShortQuestion();
+            }
+        }
+        
+        function checkCurrentShortAnswer() {
+            const shortQuestions = testQuestions.filter(q => q.type === 'short-answer');
+            const question = shortQuestions[shortAnswerOrder[currentShortQuestionIndex]];
+            const exemplarResponse = getExemplarResponse(question.number);
+            const feedback = document.getElementById('shortAnswerFeedback');
+            
+            feedback.innerHTML = `
+                <div style="text-align: left; max-width: 600px; margin: 0 auto;">
+                    <div style="font-weight: bold; margin-bottom: 15px; color: #2c3e50;">📝 Exemplar Response:</div>
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #3498db; line-height: 1.6;">
+                        ${exemplarResponse}
+                    </div>
+                    <div style="margin-top: 15px; font-size: 0.9em; color: #6c757d;">
+                        Compare your answer with this example. Your teacher will review your response.
+                    </div>
+                </div>
+            `;
+            feedback.className = 'answer-feedback feedback-correct';
+            feedback.style.display = 'block';
+        }
+        
+        // Shuffle functions
+        function shuffleFillBlankQuestions() {
+            // Fisher-Yates shuffle
+            for (let i = fillBlankOrder.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [fillBlankOrder[i], fillBlankOrder[j]] = [fillBlankOrder[j], fillBlankOrder[i]];
+            }
+            currentQuestionIndex = 0;
+            updateCurrentQuestion();
+        }
+        
+        function shuffleShortAnswerQuestions() {
+            // Fisher-Yates shuffle
+            for (let i = shortAnswerOrder.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shortAnswerOrder[i], shortAnswerOrder[j]] = [shortAnswerOrder[j], shortAnswerOrder[i]];
+            }
+            currentShortQuestionIndex = 0;
+            updateCurrentShortQuestion();
+        }
+        
+        function clearShortAnswers() {
+            shortAnswers = {};
+            updateCurrentShortQuestion();
+            localStorage.removeItem('shortAnswers');
+        }
+        
+        function saveShortAnswerProgress() {
+            localStorage.setItem('shortAnswers', JSON.stringify(shortAnswers));
+            updateShortAnswerTracker();
+        }
+        
+        function loadShortAnswerProgress() {
+            const saved = localStorage.getItem('shortAnswers');
+            if (saved) {
+                shortAnswers = JSON.parse(saved);
+            }
+        }
+        
+        function updateShortAnswerTracker() {
+            const shortQuestions = testQuestions.filter(q => q.type === 'short-answer');
+            let answeredCount = 0;
+            
+            shortQuestions.forEach(question => {
+                if (shortAnswers[question.number] && shortAnswers[question.number].trim()) {
+                    answeredCount++;
+                }
+            });
+            
+            document.getElementById('shortTrackerScore').textContent = `${answeredCount} of ${shortQuestions.length} answered`;
+        }
+        
+        function showAllShortAnswers() {
+            const shortQuestions = testQuestions.filter(q => q.type === 'short-answer');
+            const container = document.getElementById('shortAllQuestionsList');
+            container.innerHTML = '';
+            
+            // Show questions in current shuffled order
+            shortAnswerOrder.forEach((questionIndex, displayIndex) => {
+                const question = shortQuestions[questionIndex];
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.innerHTML = `
+                    <span class="question-number">${displayIndex + 1}.</span>
+                    ${question.text}
+                    <textarea class="short-answer-textarea" placeholder="Write your answer here (2-4 sentences)..." 
+                              data-question="${question.number}">${shortAnswers[question.number] || ''}</textarea>
+                `;
+                
+                const textarea = questionDiv.querySelector('textarea');
+                textarea.addEventListener('input', () => {
+                    shortAnswers[question.number] = textarea.value;
+                    saveShortAnswerProgress();
+                });
+                
+                container.appendChild(questionDiv);
+            });
+            
+            document.getElementById('shortAllQuestionsView').classList.add('active');
+            showingAllShortQuestions = true;
+        }
+        
+        function hideAllShortAnswers() {
+            document.getElementById('shortAllQuestionsView').classList.remove('active');
+            showingAllShortQuestions = false;
+            updateCurrentShortQuestion();
+        }
+        
         // Tab functionality
-        function showTab(tabName) {
+        function showTab(e, tabName) {
             // Hide all tab contents
             document.querySelectorAll('.tab-content').forEach(content => {
                 content.classList.remove('active');
             });
-            
             // Remove active class from all tab buttons
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            
             // Show selected tab content
             document.getElementById(tabName + '-content').classList.add('active');
-            
             // Add active class to clicked tab button
-            event.target.classList.add('active');
+            if (e && e.currentTarget) {
+                e.currentTarget.classList.add('active');
+            }
         }
         
         // Flashcard functionality
@@ -1655,5 +1895,5 @@
             }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98fcceea34c10adb',t:'MTc2MDY3Mjc4MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98fce27757c30adb',t:'MTc2MDY3MzU4MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
