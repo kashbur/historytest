@@ -125,6 +125,34 @@
             border-radius: 12px;
         }
         
+        .live-score-tracker {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .tracker-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .tracker-score {
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .tracker-details {
+            font-size: 1em;
+            opacity: 0.8;
+        }
+        
         .btn {
             background: linear-gradient(135deg, #3498db, #2980b9);
             color: white;
@@ -186,6 +214,271 @@
             z-index: 1000;
         }
         
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 5px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #6c757d;
+        }
+        
+        .tab-btn.active {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            box-shadow: 0 2px 10px rgba(52, 152, 219, 0.3);
+        }
+        
+        .tab-btn:hover:not(.active) {
+            background: #e9ecef;
+            color: #495057;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .flashcard-container {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        
+        .flashcard {
+            width: 350px;
+            height: 200px;
+            position: relative;
+            cursor: pointer;
+            perspective: 1000px;
+        }
+        
+        .flashcard-front,
+        .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: transform 0.6s ease;
+        }
+        
+        .flashcard-front {
+            background: white;
+            color: #2c3e50;
+            border: 2px solid #e9ecef;
+        }
+        
+        .flashcard-back {
+            background: white;
+            color: #2c3e50;
+            border: 2px solid #e9ecef;
+            transform: rotateY(180deg);
+        }
+        
+        .flashcard.flipped .flashcard-front {
+            transform: rotateY(-180deg);
+        }
+        
+        .flashcard.flipped .flashcard-back {
+            transform: rotateY(0deg);
+        }
+        
+        .term {
+            font-size: 1.8em;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+        
+        .definition {
+            font-size: 1.2em;
+            line-height: 1.4;
+        }
+        
+        .flashcard-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .progress-display {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        #progressBar {
+            width: 200px;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 2.86%;
+        }
+        
+        .flashcard-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 80px 0 30px 0;
+        }
+        
+        .study-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            display: block;
+            font-size: 2em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .test-progress {
+            margin-bottom: 40px;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .question-counter {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .test-progress-bar {
+            width: 200px;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .test-progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 3.33%;
+        }
+        
+        .current-question-container {
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        
+        .current-question {
+            width: 100%;
+            max-width: 600px;
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+        
+        .question-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .answer-feedback {
+            margin: 30px 0;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .feedback-correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #27ae60;
+        }
+        
+        .feedback-incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #e74c3c;
+        }
+        
+        .all-questions-view {
+            display: none;
+        }
+        
+        .all-questions-view.active {
+            display: block;
+        }
+        
+        .single-question-view.hidden {
+            display: none;
+        }
+        
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -208,6 +501,181 @@
                 margin-bottom: 20px;
                 text-align: center;
             }
+            
+            .flashcard {
+                width: 280px;
+                height: 180px;
+            }
+            
+            .term {
+                font-size: 1.4em;
+            }
+            
+            .definition {
+                font-size: 1em;
+            }
+            
+            .flashcard-controls {
+                justify-content: center;
+                text-align: center;
+            }
+            
+            #progressBar {
+                width: 150px;
+            }
+            
+            .study-stats {
+                gap: 20px;
+            }
+            
+            .tabs {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .tab-btn {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+            
+            .progress-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .question-counter {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .test-progress-bar {
+                width: 200px;
+            }
+            
+            .current-question {
+                font-size: 1.1em;
+                padding: 0 10px;
+            }
+            
+            .question-navigation {
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            .fill-blank-input {
+                min-width: 150px;
+                width: 100%;
+                max-width: 250px;
+                margin: 5px 0;
+                display: block;
+            }
+            
+            .short-answer-textarea {
+                min-height: 80px;
+                font-size: 14px;
+            }
+            
+            .flashcard-navigation {
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+            
+            .controls {
+                padding: 20px;
+            }
+            
+            .controls .btn {
+                margin: 5px 0;
+                display: block;
+                width: 100%;
+                max-width: none;
+            }
+            
+            .live-score-tracker {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .tracker-score {
+                font-size: 1.8em;
+            }
+            
+            .answer-feedback {
+                margin: 20px 0;
+                padding: 15px;
+                font-size: 1em;
+            }
+            
+            .section {
+                padding: 20px;
+                margin-bottom: 30px;
+            }
+            
+            .section h2 {
+                font-size: 1.5em;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .flashcard {
+                width: 250px;
+                height: 160px;
+            }
+            
+            .flashcard-front,
+            .flashcard-back {
+                padding: 20px;
+            }
+            
+            .term {
+                font-size: 1.2em;
+            }
+            
+            .definition {
+                font-size: 0.9em;
+            }
+            
+            .header h1 {
+                font-size: 1.5em;
+            }
+            
+            .header p {
+                font-size: 1em;
+            }
+            
+            .current-question {
+                font-size: 1em;
+            }
+            
+            .fill-blank-input {
+                min-width: 120px;
+                font-size: 14px;
+            }
+            
+            .btn {
+                padding: 10px 15px;
+                font-size: 13px;
+            }
+            
+            .study-stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .stat-number {
+                font-size: 1.5em;
+            }
         }
     </style>
 </head>
@@ -221,209 +689,107 @@
         </header>
         
         <main class="content">
-            <div class="section">
-                <h2>Part I: Fill in the Blank</h2>
-                <p>Write the correct word or phrase that best completes each statement.</p>
-                
-                <div class="question">
-                    <span class="question-number">1.</span>
-                    A society without laws, rules, or a functioning government is called 
-                    <input type="text" class="fill-blank-input" data-answer="anarchy" placeholder="your answer">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="showTab('test')">📝 Practice Test</button>
+                <button class="tab-btn" onclick="showTab('flashcards')">🃏 Flashcards</button>
+            </div>
+            
+            <div id="test-content" class="tab-content active">
+                <div class="section">
+                    <div class="test-progress">
+                        <div class="progress-header">
+                            <h2 id="sectionTitle">Part I: Fill in the Blank</h2>
+                            <div class="question-counter">
+                                <span id="questionCounter">Question 1 of 30</span>
+                                <div class="test-progress-bar">
+                                    <div class="test-progress-fill" id="testProgressFill"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="current-question-container">
+                        <div class="question current-question" id="currentQuestion">
+                            <span class="question-number" id="currentQuestionNumber">1.</span>
+                            <span id="currentQuestionText">A society without laws, rules, or a functioning government is called</span>
+                            <div id="currentQuestionInput">
+                                <input type="text" class="fill-blank-input" data-answer="anarchy" placeholder="your answer">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="question-navigation">
+                        <button class="btn btn-secondary" onclick="previousQuestion()" id="prevQuestionBtn">← Previous</button>
+                        <button class="btn" onclick="checkCurrentAnswer()" id="checkBtn">Check Answer</button>
+                        <button class="btn btn-secondary" onclick="nextQuestion()" id="nextQuestionBtn">Next →</button>
+                    </div>
+                    
+                    <div class="answer-feedback" id="answerFeedback" style="display: none;"></div>
                 </div>
                 
-                <div class="question">
-                    <span class="question-number">2.</span>
-                    The study of the rights and duties of citizens is called 
-                    <input type="text" class="fill-blank-input" data-answer="civics" placeholder="your answer">
+                <div class="controls">
+                    <div class="live-score-tracker" id="liveScoreTracker">
+                        <div class="tracker-label">Current Progress</div>
+                        <div class="tracker-score" id="trackerScore">0% Correct</div>
+                        <div class="tracker-details" id="trackerDetails">0 of 0 answered</div>
+                    </div>
+                    <button class="btn btn-secondary" onclick="clearAll()">Clear All Answers</button>
+                    <button class="btn btn-secondary" onclick="showFinalScore()">📊 Final Score</button>
                 </div>
                 
-                <div class="question">
-                    <span class="question-number">3.</span>
-                    A <input type="text" class="fill-blank-input" data-answer="primary" placeholder="your answer"> source is an original record created by someone who witnessed or took part in an event.
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">4.</span>
-                    A <input type="text" class="fill-blank-input" data-answer="secondary" placeholder="your answer"> source interprets or analyzes information from other sources.
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">5.</span>
-                    <input type="text" class="fill-blank-input" data-answer="bias" placeholder="your answer"> is a personal viewpoint that affects how information is presented or understood.
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">6.</span>
-                    The main purpose of government is to 
-                    <input type="text" class="fill-blank-input" data-answer="make" placeholder="answer">, 
-                    <input type="text" class="fill-blank-input" data-answer="enforce" placeholder="answer">, and 
-                    <input type="text" class="fill-blank-input" data-answer="interpret" placeholder="answer"> laws.
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">7.</span>
-                    The three branches of the national government are the 
-                    <input type="text" class="fill-blank-input" data-answer="legislative" placeholder="answer">, 
-                    <input type="text" class="fill-blank-input" data-answer="executive" placeholder="answer">, and 
-                    <input type="text" class="fill-blank-input" data-answer="judicial" placeholder="answer"> branches.
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">8.</span>
-                    The principle that the power of government comes from the people is called 
-                    <input type="text" class="fill-blank-input" data-answer="popular sovereignty" placeholder="your answer">
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">9.</span>
-                    A government ruled by one person or a small group with total power is a 
-                    <input type="text" class="fill-blank-input" data-answer="dictatorship" placeholder="your answer">
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">10.</span>
-                    A government where people elect leaders to make decisions for them is called a 
-                    <input type="text" class="fill-blank-input" data-answer="representative democracy" placeholder="your answer">
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">11.</span>
-                    The First Amendment protects freedoms of 
-                    <input type="text" class="fill-blank-input" data-answer="speech" placeholder="answer">, 
-                    <input type="text" class="fill-blank-input" data-answer="religion" placeholder="answer">, 
-                    <input type="text" class="fill-blank-input" data-answer="press" placeholder="answer">, 
-                    <input type="text" class="fill-blank-input" data-answer="assembly" placeholder="answer">, and 
-                    <input type="text" class="fill-blank-input" data-answer="petition" placeholder="answer">
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">12.</span>
-                    Expressing ideas through actions, like wearing a protest armband, is called 
-                    <input type="text" class="fill-blank-input" data-answer="symbolic speech" placeholder="your answer">
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">13.</span>
-                    The court case Brandenburg v. Ohio helped define limits on 
-                    <input type="text" class="fill-blank-input" data-answer="free speech" placeholder="your answer">
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">14.</span>
-                    The Skokie case tested the balance between 
-                    <input type="text" class="fill-blank-input" data-answer="free speech" placeholder="answer"> and the right to 
-                    <input type="text" class="fill-blank-input" data-answer="public safety" placeholder="answer">
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">15.</span>
-                    The process through which a non-citizen becomes a U.S. citizen is called 
-                    <input type="text" class="fill-blank-input" data-answer="naturalization" placeholder="your answer">
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">16.</span>
-                    A person who lives in a country without legal permission is called an 
-                    <input type="text" class="fill-blank-input" data-answer="undocumented" placeholder="answer"> person.
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">17.</span>
-                    To send someone out of the country because they are here illegally is to 
-                    <input type="text" class="fill-blank-input" data-answer="deport" placeholder="your answer"> them.
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">18.</span>
-                    A <input type="text" class="fill-blank-input" data-answer="direct" placeholder="answer"> democracy is where people vote directly on laws; a 
-                    <input type="text" class="fill-blank-input" data-answer="representative" placeholder="answer"> democracy is where they elect representatives.
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">19.</span>
-                    The rule that everyone, including government leaders, must follow the law is called the 
-                    <input type="text" class="fill-blank-input" data-answer="rule of law" placeholder="your answer">
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">20.</span>
-                    The principle that the government's power is limited by law and the consent of the people is known as 
-                    <input type="text" class="fill-blank-input" data-answer="limited government" placeholder="your answer">
+                <div class="score-display" id="scoreDisplay"></div>
                 </div>
             </div>
             
-            <div class="section">
-                <h2>Part II: Short Answer</h2>
-                <p>Answer each question in 2–4 sentences.</p>
-                
-                <div class="question">
-                    <span class="question-number">1.</span>
-                    Why is government necessary for groups of people to function?
-                    <textarea class="short-answer-textarea" placeholder="Write your answer here..."></textarea>
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">2.</span>
-                    Explain two important principles of American democracy.
-                    <textarea class="short-answer-textarea" placeholder="Write your answer here..."></textarea>
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">3.</span>
-                    How do freedom of speech and freedom of religion protect the people from the government?
-                    <textarea class="short-answer-textarea" placeholder="Write your answer here..."></textarea>
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">4.</span>
-                    Describe and explain the roles of the three branches of the U.S. government.
-                    <textarea class="short-answer-textarea" placeholder="Write your answer here..."></textarea>
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">5.</span>
-                    What are the advantages and disadvantages of democracy compared to dictatorship?
-                    <textarea class="short-answer-textarea" placeholder="Write your answer here..."></textarea>
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">6.</span>
-                    What are the two parts of freedom of religion protected by the First Amendment?
-                    <textarea class="short-answer-textarea" placeholder="Write your answer here..."></textarea>
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">7.</span>
-                    Describe and explain who is protected by the First Amendment and from whom they are protected.
-                    <textarea class="short-answer-textarea" placeholder="Write your answer here..."></textarea>
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">8.</span>
-                    Explain how symbolic speech is protected under the First Amendment.
-                    <textarea class="short-answer-textarea" placeholder="Write your answer here..."></textarea>
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">9.</span>
-                    How does the government balance individual freedoms with the collective needs of the population?
-                    <textarea class="short-answer-textarea" placeholder="Write your answer here..."></textarea>
-                </div>
-                
-                <div class="question">
-                    <span class="question-number">10.</span>
-                    What are some major challenges and debates surrounding immigration in the United States today?
-                    <textarea class="short-answer-textarea" placeholder="Write your answer here..."></textarea>
+            <div id="flashcards-content" class="tab-content">
+                <div class="section">
+                    <h2>Study Flashcards</h2>
+                    <p>Click on cards to flip them and test your knowledge!</p>
+                    
+                    <div class="flashcard-controls">
+                        <button class="btn" onclick="shuffleCards()">🔀 Shuffle Cards</button>
+                        <button class="btn btn-secondary" onclick="resetProgress()">↺ Reset Progress</button>
+                        <div class="progress-display">
+                            <span id="cardCounter">Card 1 of 35</span>
+                            <span id="progressBar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="flashcard-container">
+                        <div class="flashcard" id="flashcard" onclick="flipCard()">
+                            <div class="flashcard-front">
+                                <div class="term" id="currentTerm">Government</div>
+                            </div>
+                            <div class="flashcard-back">
+                                <div class="definition" id="currentDefinition">The ruling authority for a group of people that makes and enforces laws.</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flashcard-navigation">
+                        <button class="btn btn-secondary" onclick="previousCard()" id="prevBtn">← Previous</button>
+                        <button class="btn" onclick="markKnown()" id="knownBtn">✓ I Know This</button>
+                        <button class="btn btn-secondary" onclick="nextCard()" id="nextBtn">Next →</button>
+                    </div>
+                    
+                    <div class="study-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" id="knownCount">0</span>
+                            <span class="stat-label">Known</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="studyingCount">35</span>
+                            <span class="stat-label">Studying</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="totalCount">35</span>
+                            <span class="stat-label">Total</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-            <div class="controls">
-                <button class="btn" onclick="checkAnswers()">Check Fill-in-the-Blank Answers</button>
-                <button class="btn btn-secondary" onclick="clearAll()">Clear All Answers</button>
-                <button class="btn btn-secondary" onclick="printTest()">Print Test</button>
-            </div>
-            
-            <div class="score-display" id="scoreDisplay"></div>
         </main>
     </div>
 
@@ -442,48 +808,365 @@
         
         timerInterval = setInterval(updateTimer, 1000);
         
-        function checkAnswers() {
-            const inputs = document.querySelectorAll('.fill-blank-input');
-            let correct = 0;
-            let total = 0;
+        // Test navigation functions
+        function updateCurrentQuestion() {
+            const question = testQuestions[currentQuestionIndex];
+            const isShortAnswer = question.type === 'short-answer';
+            
+            // Update section title
+            document.getElementById('sectionTitle').textContent = 
+                isShortAnswer ? 'Part II: Short Answer' : 'Part I: Fill in the Blank';
+            
+            // Update question counter
+            document.getElementById('questionCounter').textContent = 
+                `Question ${currentQuestionIndex + 1} of ${testQuestions.length}`;
+            
+            // Update progress bar
+            const progress = ((currentQuestionIndex + 1) / testQuestions.length) * 100;
+            document.getElementById('testProgressFill').style.width = progress + '%';
+            
+            // Update question number and text
+            document.getElementById('currentQuestionNumber').textContent = question.number + '.';
+            document.getElementById('currentQuestionText').textContent = question.text;
+            
+            // Update input area
+            const inputContainer = document.getElementById('currentQuestionInput');
+            inputContainer.innerHTML = '';
+            
+            if (isShortAnswer) {
+                const textarea = document.createElement('textarea');
+                textarea.className = 'short-answer-textarea';
+                textarea.placeholder = 'Write your answer here (2-4 sentences)...';
+                textarea.value = userAnswers[currentQuestionIndex] || '';
+                textarea.addEventListener('input', () => {
+                    userAnswers[currentQuestionIndex] = textarea.value;
+                    saveTestProgress();
+                });
+                inputContainer.appendChild(textarea);
+            } else {
+                let questionText = question.text;
+                question.inputs.forEach((inputData, index) => {
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.className = 'fill-blank-input';
+                    input.dataset.answer = inputData.answer;
+                    input.placeholder = inputData.placeholder;
+                    input.value = userAnswers[`${currentQuestionIndex}_${index}`] || '';
+                    input.addEventListener('input', () => {
+                        userAnswers[`${currentQuestionIndex}_${index}`] = input.value;
+                        saveTestProgress();
+                    });
+                    
+                    // Replace ___ with input field
+                    if (questionText.includes('___')) {
+                        const parts = questionText.split('___', 2);
+                        if (parts[0]) {
+                            const textNode = document.createTextNode(parts[0]);
+                            inputContainer.appendChild(textNode);
+                        }
+                        inputContainer.appendChild(input);
+                        questionText = parts[1] || '';
+                    } else {
+                        // For questions that end with the input
+                        inputContainer.appendChild(input);
+                    }
+                });
+                
+                if (questionText) {
+                    const textNode = document.createTextNode(questionText);
+                    inputContainer.appendChild(textNode);
+                }
+            }
+            
+            // Update navigation buttons
+            document.getElementById('prevQuestionBtn').disabled = currentQuestionIndex === 0;
+            document.getElementById('nextQuestionBtn').disabled = currentQuestionIndex === testQuestions.length - 1;
+            
+            // Hide feedback
+            document.getElementById('answerFeedback').style.display = 'none';
+        }
+        
+        function nextQuestion() {
+            if (currentQuestionIndex < testQuestions.length - 1) {
+                currentQuestionIndex++;
+                updateCurrentQuestion();
+            }
+        }
+        
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                updateCurrentQuestion();
+            }
+        }
+        
+        // Helper function to calculate similarity between two strings
+        function calculateSimilarity(str1, str2) {
+            const longer = str1.length > str2.length ? str1 : str2;
+            const shorter = str1.length > str2.length ? str2 : str1;
+            
+            if (longer.length === 0) return 1.0;
+            
+            const editDistance = getEditDistance(longer, shorter);
+            return (longer.length - editDistance) / longer.length;
+        }
+        
+        // Calculate edit distance (Levenshtein distance)
+        function getEditDistance(str1, str2) {
+            const matrix = [];
+            
+            for (let i = 0; i <= str2.length; i++) {
+                matrix[i] = [i];
+            }
+            
+            for (let j = 0; j <= str1.length; j++) {
+                matrix[0][j] = j;
+            }
+            
+            for (let i = 1; i <= str2.length; i++) {
+                for (let j = 1; j <= str1.length; j++) {
+                    if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
+                        matrix[i][j] = matrix[i - 1][j - 1];
+                    } else {
+                        matrix[i][j] = Math.min(
+                            matrix[i - 1][j - 1] + 1,
+                            matrix[i][j - 1] + 1,
+                            matrix[i - 1][j] + 1
+                        );
+                    }
+                }
+            }
+            
+            return matrix[str2.length][str1.length];
+        }
+        
+        function checkCurrentAnswer() {
+            const question = testQuestions[currentQuestionIndex];
+            const feedback = document.getElementById('answerFeedback');
+            
+            if (question.type === 'short-answer') {
+                const exemplarResponse = getExemplarResponse(question.number);
+                feedback.innerHTML = `
+                    <div style="text-align: left; max-width: 600px; margin: 0 auto;">
+                        <div style="font-weight: bold; margin-bottom: 15px; color: #2c3e50;">📝 Exemplar Response:</div>
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #3498db; line-height: 1.6;">
+                            ${exemplarResponse}
+                        </div>
+                        <div style="margin-top: 15px; font-size: 0.9em; color: #6c757d;">
+                            Compare your answer with this example. Your teacher will review your response.
+                        </div>
+                    </div>
+                `;
+                feedback.className = 'answer-feedback feedback-correct';
+                feedback.style.display = 'block';
+                return;
+            }
+            
+            const inputs = document.querySelectorAll('#currentQuestionInput .fill-blank-input');
+            let allCorrect = true;
+            let hasAnswers = false;
             
             inputs.forEach(input => {
                 const userAnswer = input.value.trim().toLowerCase();
                 const correctAnswer = input.dataset.answer.toLowerCase();
-                total++;
                 
-                // Check for multiple acceptable answers
+                if (userAnswer) hasAnswers = true;
+                
                 const acceptableAnswers = correctAnswer.split('|').map(ans => ans.trim());
-                const isCorrect = acceptableAnswers.some(ans => 
-                    userAnswer === ans || 
-                    (ans.includes(' ') && userAnswer.includes(ans.split(' ')[0]) && userAnswer.includes(ans.split(' ')[1]))
-                );
+                const isCorrect = acceptableAnswers.some(ans => {
+                    // Exact match
+                    if (userAnswer === ans) return true;
+                    
+                    // Multi-word phrase check
+                    if (ans.includes(' ') && userAnswer.includes(ans.split(' ')[0]) && userAnswer.includes(ans.split(' ')[1])) {
+                        return true;
+                    }
+                    
+                    // Spelling similarity check (85% similarity threshold)
+                    const similarity = calculateSimilarity(userAnswer, ans);
+                    if (similarity >= 0.85) return true;
+                    
+                    // Check for common spelling variations
+                    const variations = getSpellingVariations(ans);
+                    return variations.some(variation => userAnswer === variation || calculateSimilarity(userAnswer, variation) >= 0.85);
+                });
                 
-                if (isCorrect) {
-                    input.classList.add('correct');
-                    input.classList.remove('incorrect');
-                    correct++;
-                } else {
-                    input.classList.add('incorrect');
-                    input.classList.remove('correct');
+                if (!isCorrect) allCorrect = false;
+            });
+            
+            if (!hasAnswers) {
+                feedback.innerHTML = '⚠️ Please provide an answer before checking.';
+                feedback.className = 'answer-feedback feedback-incorrect';
+            } else if (allCorrect) {
+                feedback.innerHTML = '✅ Correct! Great job!';
+                feedback.className = 'answer-feedback feedback-correct';
+            } else {
+                feedback.innerHTML = '❌ Not quite right. Try again!';
+                feedback.className = 'answer-feedback feedback-incorrect';
+            }
+            
+            feedback.style.display = 'block';
+        }
+        
+        // Generate common spelling variations
+        function getSpellingVariations(word) {
+            const variations = [];
+            
+            // Common spelling patterns
+            const patterns = [
+                // -tion/-sion endings
+                [/tion$/, 'sion'],
+                [/sion$/, 'tion'],
+                // -ance/-ence endings
+                [/ance$/, 'ence'],
+                [/ence$/, 'ance'],
+                // -ary/-ery endings
+                [/ary$/, 'ery'],
+                [/ery$/, 'ary'],
+                // Double letters
+                [/([bcdfghjklmnpqrstvwxyz])\1/, '$1'],
+                [/([bcdfghjklmnpqrstvwxyz])([aeiou])/, '$1$1$2'],
+                // -ize/-ise endings
+                [/ize$/, 'ise'],
+                [/ise$/, 'ize'],
+                // -or/-er endings
+                [/or$/, 'er'],
+                [/er$/, 'or'],
+                // Common letter swaps
+                [/ie/, 'ei'],
+                [/ei/, 'ie'],
+                [/ph/, 'f'],
+                [/f/, 'ph']
+            ];
+            
+            patterns.forEach(([pattern, replacement]) => {
+                if (pattern.test(word)) {
+                    variations.push(word.replace(pattern, replacement));
                 }
             });
             
-            const percentage = Math.round((correct / total) * 100);
+            return variations;
+        }
+        
+
+        
+        function showFinalScore() {
+            let fillBlankCorrect = 0;
+            let fillBlankTotal = 0;
+            
+            testQuestions.forEach((question, qIndex) => {
+                if (question.type === 'fill-blank') {
+                    question.inputs.forEach((inputData, iIndex) => {
+                        fillBlankTotal++;
+                        const userAnswer = (userAnswers[`${qIndex}_${iIndex}`] || '').trim();
+                        const correctAnswer = inputData.answer.toLowerCase();
+                        
+                        const acceptableAnswers = correctAnswer.split('|').map(ans => ans.trim());
+                        const isCorrect = acceptableAnswers.some(ans => {
+                            // Exact match
+                            if (userAnswer.toLowerCase() === ans) return true;
+                            
+                            // Multi-word phrase check
+                            if (ans.includes(' ') && userAnswer.toLowerCase().includes(ans.split(' ')[0]) && userAnswer.toLowerCase().includes(ans.split(' ')[1])) {
+                                return true;
+                            }
+                            
+                            // Spelling similarity check (85% similarity threshold)
+                            const similarity = calculateSimilarity(userAnswer.toLowerCase(), ans);
+                            if (similarity >= 0.85) return true;
+                            
+                            // Check for common spelling variations
+                            const variations = getSpellingVariations(ans);
+                            return variations.some(variation => userAnswer.toLowerCase() === variation || calculateSimilarity(userAnswer.toLowerCase(), variation) >= 0.85);
+                        });
+                        
+                        if (isCorrect) fillBlankCorrect++;
+                    });
+                }
+            });
+            
+            const percentage = fillBlankTotal > 0 ? Math.round((fillBlankCorrect / fillBlankTotal) * 100) : 0;
             const scoreDisplay = document.getElementById('scoreDisplay');
             scoreDisplay.style.display = 'block';
             scoreDisplay.innerHTML = `
-                <div>Fill-in-the-Blank Score: ${correct}/${total} (${percentage}%)</div>
+                <div>Fill-in-the-Blank Score: ${fillBlankCorrect}/${fillBlankTotal} (${percentage}%)</div>
                 <div style="margin-top: 10px; font-size: 0.9em;">
                     ${percentage >= 90 ? '🌟 Excellent work!' : 
                       percentage >= 80 ? '👍 Good job!' : 
                       percentage >= 70 ? '📚 Keep studying!' : 
                       '💪 Review the material and try again!'}
                 </div>
+                <div style="margin-top: 15px; font-size: 0.9em; opacity: 0.8;">
+                    Short answer questions will be reviewed separately by your teacher.
+                </div>
+                <div style="margin-top: 10px; font-size: 0.8em; color: #6c757d;">
+                    ✨ Minor spelling errors are automatically forgiven
+                </div>
             `;
             
-            // Scroll to score
             scoreDisplay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        function saveTestProgress() {
+            localStorage.setItem('testAnswers', JSON.stringify(userAnswers));
+            updateLiveTracker();
+        }
+        
+        function updateLiveTracker() {
+            let fillBlankCorrect = 0;
+            let fillBlankTotal = 0;
+            let fillBlankAnswered = 0;
+            
+            testQuestions.forEach((question, qIndex) => {
+                if (question.type === 'fill-blank') {
+                    question.inputs.forEach((inputData, iIndex) => {
+                        fillBlankTotal++;
+                        const userAnswer = (userAnswers[`${qIndex}_${iIndex}`] || '').trim();
+                        
+                        if (userAnswer) {
+                            fillBlankAnswered++;
+                            const correctAnswer = inputData.answer.toLowerCase();
+                            const acceptableAnswers = correctAnswer.split('|').map(ans => ans.trim());
+                            const isCorrect = acceptableAnswers.some(ans => {
+                                // Exact match
+                                if (userAnswer.toLowerCase() === ans) return true;
+                                
+                                // Multi-word phrase check
+                                if (ans.includes(' ') && userAnswer.toLowerCase().includes(ans.split(' ')[0]) && userAnswer.toLowerCase().includes(ans.split(' ')[1])) {
+                                    return true;
+                                }
+                                
+                                // Spelling similarity check (85% similarity threshold)
+                                const similarity = calculateSimilarity(userAnswer.toLowerCase(), ans);
+                                if (similarity >= 0.85) return true;
+                                
+                                // Check for common spelling variations
+                                const variations = getSpellingVariations(ans);
+                                return variations.some(variation => userAnswer.toLowerCase() === variation || calculateSimilarity(userAnswer.toLowerCase(), variation) >= 0.85);
+                            });
+                            
+                            if (isCorrect) fillBlankCorrect++;
+                        }
+                    });
+                }
+            });
+            
+            const percentage = fillBlankAnswered > 0 ? Math.round((fillBlankCorrect / fillBlankAnswered) * 100) : 0;
+            const overallPercentage = fillBlankTotal > 0 ? Math.round((fillBlankCorrect / fillBlankTotal) * 100) : 0;
+            
+            document.getElementById('trackerScore').textContent = fillBlankAnswered > 0 ? `${percentage}% Correct` : 'No answers yet';
+            document.getElementById('trackerDetails').textContent = `${fillBlankCorrect} correct of ${fillBlankAnswered} answered (${fillBlankTotal} total)`;
+        }
+        
+        function loadTestProgress() {
+            const saved = localStorage.getItem('testAnswers');
+            if (saved) {
+                userAnswers = JSON.parse(saved);
+            }
+        }
+        
+        function checkAnswers() {
+            showFinalScore();
         }
         
         function clearAll() {
@@ -507,6 +1190,23 @@
         
         function printTest() {
             window.print();
+        }
+        
+        // Exemplar responses for short answer questions
+        function getExemplarResponse(questionNumber) {
+            const exemplars = {
+                21: "Government is necessary because it keeps order and prevents chaos. It makes and enforces laws so people know what is right and wrong. Without government, there would be fighting, confusion, and no way to solve conflicts fairly.",
+                22: "One important principle is popular sovereignty, which means the people have the power to choose their leaders and give the government its authority. Another is the rule of law, which means everyone — even leaders — must follow the law. These principles keep the government fair and accountable to citizens.",
+                23: "Freedom of speech allows people to express opinions and criticize the government without being punished. Freedom of religion protects people's right to believe and worship however they choose. Both freedoms stop the government from controlling people's thoughts or beliefs.",
+                24: "The Legislative Branch makes laws, the Executive Branch enforces them, and the Judicial Branch interprets them. Each branch has different powers so no one part of the government becomes too strong. This system is called checks and balances.",
+                25: "A democracy allows citizens to have a voice in their government and protects individual rights. However, decision-making can be slower because it requires discussion and voting. A dictatorship can make decisions quickly, but people lose their freedom and have no say in how they are governed.",
+                26: "The First Amendment protects freedom of belief and separation of church and state. This means the government cannot create an official religion or force anyone to follow a religion. It also ensures people can freely practice any faith or none at all.",
+                27: "The First Amendment protects all people in the United States, including citizens and residents, from the government. It prevents the government from limiting free speech, religion, the press, assembly, or petitions. These rights let people express themselves without fear of punishment.",
+                28: "Symbolic speech means expressing ideas through actions instead of words, like wearing a protest armband or holding a sign. The Supreme Court has ruled that these actions count as free speech. This protects people's right to share their beliefs in different ways.",
+                29: "The government allows people many freedoms but sets some limits to keep everyone safe. For example, people have freedom of speech, but they can't say things that cause harm or danger. This balance helps protect both personal rights and the common good.",
+                30: "Some people believe immigration helps the economy and honors America's tradition of welcoming newcomers. Others worry that too many immigrants strain resources or take jobs. The biggest debate is how to handle undocumented people — whether to create a path to citizenship or increase deportations."
+            };
+            return exemplars[questionNumber] || "Exemplar response not available for this question.";
         }
         
         // Auto-save functionality
@@ -548,10 +1248,373 @@
         }
         
         // Load saved progress on page load
-        window.addEventListener('load', loadProgress);
+        window.addEventListener('load', () => {
+            loadProgress();
+            loadTestProgress();
+            updateCurrentQuestion();
+            updateLiveTracker();
+        });
         
         // Save progress when user types
         document.addEventListener('input', saveProgress);
+        
+        // Test questions data
+        const testQuestions = [
+            // Fill in the blank questions
+            {
+                type: 'fill-blank',
+                number: 1,
+                text: 'A society without laws, rules, or a functioning government is called',
+                inputs: [{ answer: 'anarchy', placeholder: 'your answer' }]
+            },
+            {
+                type: 'fill-blank',
+                number: 2,
+                text: 'The study of the rights and duties of citizens is called',
+                inputs: [{ answer: 'civics', placeholder: 'your answer' }]
+            },
+            {
+                type: 'fill-blank',
+                number: 3,
+                text: 'A ___ source is an original record created by someone who witnessed or took part in an event.',
+                inputs: [{ answer: 'primary source', placeholder: 'your answer' }]
+            },
+            {
+                type: 'fill-blank',
+                number: 4,
+                text: 'A ___ source interprets or analyzes information from other sources.',
+                inputs: [{ answer: 'secondary source', placeholder: 'your answer' }]
+            },
+            {
+                type: 'fill-blank',
+                number: 5,
+                text: '___ is a personal viewpoint that affects how information is presented or understood.',
+                inputs: [{ answer: 'bias', placeholder: 'your answer' }]
+            },
+            {
+                type: 'fill-blank',
+                number: 6,
+                text: 'The main purpose of government is to ___, ___, and ___ laws.',
+                inputs: [
+                    { answer: 'make', placeholder: 'answer' },
+                    { answer: 'enforce', placeholder: 'answer' },
+                    { answer: 'interpret', placeholder: 'answer' }
+                ]
+            },
+            {
+                type: 'fill-blank',
+                number: 7,
+                text: 'The three branches of the national government are the ___, ___, and ___ branches.',
+                inputs: [
+                    { answer: 'legislative', placeholder: 'answer' },
+                    { answer: 'executive', placeholder: 'answer' },
+                    { answer: 'judicial', placeholder: 'answer' }
+                ]
+            },
+            {
+                type: 'fill-blank',
+                number: 8,
+                text: 'The principle that the power of government comes from the people is called',
+                inputs: [{ answer: 'popular sovereignty', placeholder: 'your answer' }]
+            },
+            {
+                type: 'fill-blank',
+                number: 9,
+                text: 'A government ruled by one person or a small group with total power is a',
+                inputs: [{ answer: 'dictatorship', placeholder: 'your answer' }]
+            },
+            {
+                type: 'fill-blank',
+                number: 10,
+                text: 'A government where people elect leaders to make decisions for them is called a',
+                inputs: [{ answer: 'representative democracy|republic', placeholder: 'your answer' }]
+            },
+            {
+                type: 'fill-blank',
+                number: 11,
+                text: 'The First Amendment protects freedoms of ___, ___, ___, ___, and ___',
+                inputs: [
+                    { answer: 'speech', placeholder: 'answer' },
+                    { answer: 'religion', placeholder: 'answer' },
+                    { answer: 'press', placeholder: 'answer' },
+                    { answer: 'assembly', placeholder: 'answer' },
+                    { answer: 'petition', placeholder: 'answer' }
+                ]
+            },
+            {
+                type: 'fill-blank',
+                number: 12,
+                text: 'Expressing ideas through actions, like wearing a protest armband, is called',
+                inputs: [{ answer: 'symbolic speech', placeholder: 'your answer' }]
+            },
+            {
+                type: 'fill-blank',
+                number: 13,
+                text: 'The court case Brandenburg v. Ohio helped define limits on',
+                inputs: [{ answer: 'free speech', placeholder: 'your answer' }]
+            },
+            {
+                type: 'fill-blank',
+                number: 14,
+                text: 'The Skokie case tested the balance between ___ and the right to ___',
+                inputs: [
+                    { answer: 'free speech|free expression', placeholder: 'answer' },
+                    { answer: 'public safety', placeholder: 'answer' }
+                ]
+            },
+            {
+                type: 'fill-blank',
+                number: 15,
+                text: 'The process through which a non-citizen becomes a U.S. citizen is called',
+                inputs: [{ answer: 'naturalization', placeholder: 'your answer' }]
+            },
+            {
+                type: 'fill-blank',
+                number: 16,
+                text: 'A person who lives in a country without legal permission is called an ___ person.',
+                inputs: [{ answer: 'undocumented person', placeholder: 'answer' }]
+            },
+            {
+                type: 'fill-blank',
+                number: 17,
+                text: 'To send someone out of the country because they are here illegally is to ___ them.',
+                inputs: [{ answer: 'deport', placeholder: 'your answer' }]
+            },
+            {
+                type: 'fill-blank',
+                number: 18,
+                text: 'A ___ democracy is where people vote directly on laws; a ___ democracy is where they elect representatives.',
+                inputs: [
+                    { answer: 'direct', placeholder: 'answer' },
+                    { answer: 'representative', placeholder: 'answer' }
+                ]
+            },
+            {
+                type: 'fill-blank',
+                number: 19,
+                text: 'The rule that everyone, including government leaders, must follow the law is called the',
+                inputs: [{ answer: 'rule of law', placeholder: 'your answer' }]
+            },
+            {
+                type: 'fill-blank',
+                number: 20,
+                text: 'The principle that the government\'s power is limited by law and the consent of the people is known as',
+                inputs: [{ answer: 'limited government', placeholder: 'your answer' }]
+            },
+            // Short answer questions
+            {
+                type: 'short-answer',
+                number: 21,
+                text: 'Why is government necessary for groups of people to function?',
+                inputs: []
+            },
+            {
+                type: 'short-answer',
+                number: 22,
+                text: 'Explain two important principles of American democracy.',
+                inputs: []
+            },
+            {
+                type: 'short-answer',
+                number: 23,
+                text: 'How do freedom of speech and freedom of religion protect the people from the government?',
+                inputs: []
+            },
+            {
+                type: 'short-answer',
+                number: 24,
+                text: 'Describe and explain the roles of the three branches of the U.S. government.',
+                inputs: []
+            },
+            {
+                type: 'short-answer',
+                number: 25,
+                text: 'What are the advantages and disadvantages of democracy compared to dictatorship?',
+                inputs: []
+            },
+            {
+                type: 'short-answer',
+                number: 26,
+                text: 'What are the two parts of freedom of religion protected by the First Amendment?',
+                inputs: []
+            },
+            {
+                type: 'short-answer',
+                number: 27,
+                text: 'Describe and explain who is protected by the First Amendment and from whom they are protected.',
+                inputs: []
+            },
+            {
+                type: 'short-answer',
+                number: 28,
+                text: 'Explain how symbolic speech is protected under the First Amendment.',
+                inputs: []
+            },
+            {
+                type: 'short-answer',
+                number: 29,
+                text: 'How does the government balance individual freedoms with the collective needs of the population?',
+                inputs: []
+            },
+            {
+                type: 'short-answer',
+                number: 30,
+                text: 'What are some major challenges and debates surrounding immigration in the United States today?',
+                inputs: []
+            }
+        ];
+        
+        let currentQuestionIndex = 0;
+        let userAnswers = {};
+        let showingAllQuestions = false;
+        
+        // Flashcard data
+        const flashcards = [
+            { term: "Government", definition: "The ruling authority for a group of people that makes and enforces laws." },
+            { term: "Anarchy", definition: "A society without government or laws, resulting in disorder and chaos." },
+            { term: "Civics", definition: "The study of the rights and duties of citizens and how government works." },
+            { term: "Primary Source", definition: "A firsthand account created by someone who experienced an event (e.g., a diary, photo, or speech)." },
+            { term: "Secondary Source", definition: "A source that interprets or analyzes primary sources (e.g., textbooks, articles)." },
+            { term: "Bias", definition: "A personal opinion or preference that affects how information is presented." },
+            { term: "Law", definition: "A rule made and enforced by government to maintain order and protect citizens." },
+            { term: "Levels of Government", definition: "The three types of government in the U.S.: local, state, and national (federal)." },
+            { term: "Democracy", definition: "A government where power comes from the people." },
+            { term: "Direct Democracy", definition: "A system where citizens vote directly on laws and decisions." },
+            { term: "Representative Democracy (Republic)", definition: "A system where citizens elect officials to make laws and decisions for them." },
+            { term: "Dictatorship", definition: "A government ruled by one person or small group with total control, often using force." },
+            { term: "Monarchy", definition: "A government ruled by a king or queen, with power passed down through family." },
+            { term: "Popular Sovereignty", definition: "The belief that government's authority comes from the people ('consent of the governed')." },
+            { term: "Rule of Law", definition: "The principle that everyone, including government leaders, must follow the law." },
+            { term: "Limited Government", definition: "The idea that government's powers are restricted by law and the Constitution." },
+            { term: "Public Policy", definition: "The government's plans and actions to solve community problems or reach goals." },
+            { term: "Budget", definition: "A plan for collecting and spending money to meet government goals." },
+            { term: "First Amendment Freedoms", definition: "Rights protected by the Constitution: freedom of speech, religion, press, assembly, and petition." },
+            { term: "Freedom of Religion", definition: "Protects two parts: the right to practice any religion (or none) and separation of church and state." },
+            { term: "Freedom of Speech", definition: "The right to express opinions without government punishment." },
+            { term: "Freedom of the Press", definition: "The right of the media to publish information and opinions freely." },
+            { term: "Freedom of Assembly", definition: "The right to meet peacefully in groups." },
+            { term: "Freedom to Petition", definition: "The right to complain to or request change from the government." },
+            { term: "Symbolic Speech", definition: "Expressing ideas through actions, not just words (e.g., wearing protest symbols)." },
+            { term: "Skokie Case", definition: "A Supreme Court case testing whether hate groups still have the right to free speech and assembly." },
+            { term: "Naturalization", definition: "The legal process through which a non-citizen becomes a U.S. citizen." },
+            { term: "Citizen", definition: "A legal member of a country with rights and responsibilities." },
+            { term: "Documented Immigrant", definition: "A person living in the U.S. legally, with government permission." },
+            { term: "Undocumented Immigrant", definition: "A person living in the U.S. without legal permission." },
+            { term: "Deport", definition: "To remove someone from a country and send them back to their country of origin." },
+            { term: "Immigration", definition: "The act of moving permanently to a new country." },
+            { term: "Public Services", definition: "Government-provided services like schools, roads, police, and fire departments." },
+            { term: "An Example of Bias", definition: "When someone presents only one side of an issue or uses loaded language to influence opinion." },
+            { term: "Precedent", definition: "A past court ruling used as a guide for future legal decisions." }
+        ];
+        
+        let currentCardIndex = 0;
+        let knownCards = new Set();
+        let cardOrder = [...Array(flashcards.length).keys()];
+        
+        // Tab functionality
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName + '-content').classList.add('active');
+            
+            // Add active class to clicked tab button
+            event.target.classList.add('active');
+        }
+        
+        // Flashcard functionality
+        function updateCard() {
+            const card = flashcards[cardOrder[currentCardIndex]];
+            document.getElementById('currentTerm').textContent = card.term;
+            document.getElementById('currentDefinition').textContent = card.definition;
+            document.getElementById('cardCounter').textContent = `Card ${currentCardIndex + 1} of ${flashcards.length}`;
+            
+            // Update progress bar
+            const progress = ((currentCardIndex + 1) / flashcards.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            // Reset flip state
+            document.getElementById('flashcard').classList.remove('flipped');
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentCardIndex === 0;
+            document.getElementById('nextBtn').disabled = currentCardIndex === flashcards.length - 1;
+            
+            // Update known button
+            const cardId = cardOrder[currentCardIndex];
+            const knownBtn = document.getElementById('knownBtn');
+            if (knownCards.has(cardId)) {
+                knownBtn.textContent = '↺ Study Again';
+                knownBtn.style.background = 'linear-gradient(135deg, #f39c12, #e67e22)';
+            } else {
+                knownBtn.textContent = '✓ I Know This';
+                knownBtn.style.background = 'linear-gradient(135deg, #27ae60, #2ecc71)';
+            }
+        }
+        
+        function flipCard() {
+            document.getElementById('flashcard').classList.toggle('flipped');
+        }
+        
+        function nextCard() {
+            if (currentCardIndex < flashcards.length - 1) {
+                currentCardIndex++;
+                updateCard();
+            }
+        }
+        
+        function previousCard() {
+            if (currentCardIndex > 0) {
+                currentCardIndex--;
+                updateCard();
+            }
+        }
+        
+        function markKnown() {
+            const cardId = cardOrder[currentCardIndex];
+            if (knownCards.has(cardId)) {
+                knownCards.delete(cardId);
+            } else {
+                knownCards.add(cardId);
+            }
+            updateStats();
+            updateCard();
+        }
+        
+        function shuffleCards() {
+            // Fisher-Yates shuffle
+            for (let i = cardOrder.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cardOrder[i], cardOrder[j]] = [cardOrder[j], cardOrder[i]];
+            }
+            currentCardIndex = 0;
+            updateCard();
+        }
+        
+        function resetProgress() {
+            knownCards.clear();
+            currentCardIndex = 0;
+            cardOrder = [...Array(flashcards.length).keys()];
+            updateStats();
+            updateCard();
+        }
+        
+        function updateStats() {
+            document.getElementById('knownCount').textContent = knownCards.size;
+            document.getElementById('studyingCount').textContent = flashcards.length - knownCards.size;
+        }
+        
+        // Initialize flashcards
+        updateCard();
+        updateStats();
         
         // Add keyboard shortcuts
         document.addEventListener('keydown', function(e) {
@@ -567,7 +1630,30 @@
                         break;
                 }
             }
+            
+            // Flashcard keyboard shortcuts
+            if (document.getElementById('flashcards-content').classList.contains('active')) {
+                switch(e.key) {
+                    case ' ':
+                    case 'Enter':
+                        e.preventDefault();
+                        flipCard();
+                        break;
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        previousCard();
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        nextCard();
+                        break;
+                    case 'k':
+                        e.preventDefault();
+                        markKnown();
+                        break;
+                }
+            }
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98fcb1af45010adb',t:'MTc2MDY3MTU4Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98fcceea34c10adb',t:'MTc2MDY3Mjc4MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
