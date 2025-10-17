@@ -714,7 +714,7 @@
                             <span class="question-number" id="currentQuestionNumber">1.</span>
                             <span id="currentQuestionText">A society without laws, rules, or a functioning government is called</span>
                             <div id="currentQuestionInput">
-                                <input type="text" class="fill-blank-input" data-answer="anarchy" placeholder="your answer">
+                                <input type="text" class="fill-blank-input" data-answer="anarchy">
                             </div>
                         </div>
                     </div>
@@ -911,7 +911,6 @@
                 input.type = 'text';
                 input.className = 'fill-blank-input';
                 input.dataset.answer = inputData.answer;
-                input.placeholder = inputData.placeholder;
                 const actualQuestionIndex = testQuestions.findIndex(q => q.number === question.number);
                 input.value = userAnswers[`${actualQuestionIndex}_${index}`] || '';
                 input.addEventListener('input', () => {
