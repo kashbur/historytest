@@ -898,6 +898,7 @@
             inputContainer.innerHTML = '';
             
             // Fill-in-the-blank logic
+            const hadBlanks = question.text.includes('___');
             let questionText = question.text;
             question.inputs.forEach((inputData, index) => {
                 const input = document.createElement('input');
@@ -928,7 +929,7 @@
                 }
             });
             
-            if (questionText) {
+            if (hadBlanks && questionText) {
                 const textNode = document.createTextNode(questionText);
                 inputContainer.appendChild(textNode);
             }
